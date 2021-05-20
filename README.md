@@ -9,15 +9,23 @@ Copy env configuration file.
 ```
 cp code/.env.example code/.env
 ```
-Make sure you have been install docker and docker-compose. Then run this command.
+Make sure you have been install docker and docker-compose. Then run this command to create all necessary containers
 ```
-docker-compose up -d --build
+make up-build 
 ```
-Install dependencies
+Install dependencies for laravel
 ```
-docker-compose run php-fpm composer update
+make install-dependency
 ```
-Then laravel horizon configuration
+Check laravel status from browser and generate key for laravel config.
 ```
-docker-compose run --rm --no-deps php-fpm php artisan horizon:install
+make open
+```
+Install laravel Horizon and after command run completely check for horizon dashboard page at browser.
+```
+make install-horizon
+```
+Start Supervisor service and let supervisor daemon read the config ie. ./build/supervisor/conf.d/horizon.conf. lastly start horizon with supervisor service. Horizon dashboard shall show active status
+```
+make supervisor-horizon
 ```

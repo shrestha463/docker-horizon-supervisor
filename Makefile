@@ -8,7 +8,7 @@ down:
 	docker-compose down
 
 open:
-	open http://localhost:8087
+	open http://localhost
 
 tinker:
 	docker-compose run horizonapp php artisan tinker
@@ -19,7 +19,6 @@ install-dependency:
 install-horizon:
 	docker-compose run --rm --no-deps horizonapp composer require laravel/horizon
 	docker-compose run --rm --no-deps horizonapp php artisan horizon:install
-	docker-compose run --rm --no-deps horizonapp php artisan horizon
 
 start-horizon:
 	docker-compose exec -d horizonapp php artisan horizon
