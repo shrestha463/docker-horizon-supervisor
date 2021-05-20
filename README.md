@@ -1,9 +1,9 @@
-# Laravel Horizon with Docker
+# Laravel Horizon with Docker and setup supervisor
 This is an example for laravel horizon using docker.
 # How to use?
 Clone this repository.
 ```
-git clone https://github.com/ar-android/docker-laravel-horizon.git
+git clone https://github.com/ramonov/docker-horizon-supervisor.git
 ```
 Copy env configuration file.
 ```
