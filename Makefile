@@ -8,7 +8,7 @@ down:
 	docker-compose down
 
 open:
-	open http://localhost
+	xdg-open http://localhost
 
 tinker:
 	docker-compose run horizonapp php artisan tinker
