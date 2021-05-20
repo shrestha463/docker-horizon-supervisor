@@ -1,4 +1,4 @@
-# Laravel Horizon with Docker and setup supervisor
+# Laravel Horizon with Docker and supervisor
 This is an example for laravel horizon using docker.
 # How to use?
 Clone this repository.
