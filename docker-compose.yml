@@ -1,0 +1,71 @@
+version: "3"
+
+services:
+  horizonapp:
+    build: ./build
+    container_name: horizonapp
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www
+    depends_on:
+      - horizondb
+      - horizonredis
+    volumes:
+      - ./code:/var/www
+      - ./build/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./build/supervisor/conf.d/:/etc/supervisor/conf.d/
+    networks:
+      - horizon-network
+
+  horizondb:
+    image: mysql:5.7.22
+    container_name: horizondb
+    restart: unless-stopped
+    ports:
+      - "33067:3306"
+    environment:
+      MYSQL_DATABASE: horizon_db
+      MYSQL_ROOT_PASSWORD: P@ssw0rd
+      MYSQL_USER: horizon_user
+      MYSQL_USER_PASSWORD: userP@ssw0rd
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - horizondb:/var/lib/mysql/
+      - ./build/mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - horizon-network
+
+  horizonweb:
+    image: nginx
+    container_name: horizonweb
+    ports:
+      - "8087:80"
+      #- "443:443"
+    volumes:
+      - ./build/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./code:/var/www
+      - ./build/nginx/log:/var/log/nginx
+    depends_on:
+      - horizonapp
+    networks:
+      - horizon-network
+  
+  horizonredis:
+    image: redis
+    volumes:
+      - ./build/data/redis:/datadoc
+    container_name: horizonredis
+    ports:
+      - "6379:6379"
+    networks:
+      - horizon-network
+
+#Docker Networks
+networks:
+  horizon-network:
+    driver: bridge
+#Volumes
+volumes:
+  horizondb:
+    driver: local
