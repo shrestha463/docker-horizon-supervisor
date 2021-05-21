@@ -1,0 +1,7 @@
+.env
+.env.backup
+.phpunit.result.cache
+docker-compose.yml
+docker-compose.override.yml
+./build/nginx/log/*
+./build/Dockerfile
